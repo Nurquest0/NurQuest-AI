@@ -1,5 +1,4 @@
 import OpenAI from "openai";
-import { sql } from "@vercel/postgres";
 
 const client = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
@@ -41,10 +40,6 @@ export default async function handler(req, res) {
       });
     }
 
-    await sql`
-  INSERT INTO ai_chat_logs (user_message)
-  VALUES (${message})
-`;
     const systemPrompt = `
 Anda ialah NurQuest AI, pembantu pembelajaran Islam dalam laman web NurQuest.
 
