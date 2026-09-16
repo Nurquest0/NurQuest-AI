@@ -41,6 +41,8 @@ export default async function handler(req, res) {
       });
     }
 
+    console.log("USER QUESTION:", message);
+
     try {
   await sql`
     INSERT INTO public.ai_chat_logs (user_message)
