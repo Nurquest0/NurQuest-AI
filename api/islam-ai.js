@@ -1,4 +1,5 @@
 import OpenAI from "openai";
+import { neon } from "@neondatabase/serverless";
 
 const client = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
