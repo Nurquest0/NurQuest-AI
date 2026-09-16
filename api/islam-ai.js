@@ -99,6 +99,8 @@ ${language === "en" ? "English" : "Bahasa Melayu"}
       input
     });
 
+    console.log("OUTPUT TEXT:", response.output_text);
+
     return res.status(200).json({
       answer: response.output_text
     });
