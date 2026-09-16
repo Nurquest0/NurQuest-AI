@@ -1,11 +1,11 @@
 import OpenAI from "openai";
-import { neon } from "@neondatabase/serverless";
+import { sql } from "@vercel/postgres";
 
 const client = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
 });
 
-const sql = neon(process.env.DATABASE_URL);
+
 
 export default async function handler(req, res) {
 
@@ -41,12 +41,10 @@ export default async function handler(req, res) {
       });
     }
 
-    // Simpan soalan user ke database
     await sql`
-      INSERT INTO ai_chat_logs (user_message)
-      VALUES (${message})
-    `;
-
+  INSERT INTO ai_chat_logs (user_message)
+  VALUES (${message})
+`;
     const systemPrompt = `
 Anda ialah NurQuest AI, pembantu pembelajaran Islam dalam laman web NurQuest.
 
