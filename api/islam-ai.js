@@ -1,9 +1,11 @@
 import OpenAI from "openai";
-import { sql } from "@vercel/postgres";
+import { neon } from "@neondatabase/serverless";
 
 const client = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
 });
+
+const sql = neon(process.env.DATABASE_URL);
 
 export default async function handler(req, res) {
 
@@ -25,12 +27,7 @@ export default async function handler(req, res) {
   }
 
   try {
-
-    const {
-      message,
-      language = "ms",
-      history = []
-    } = req.body || {};
+    const { message, language = "ms", history = [] } = req.body || {};
 
     if (!message || typeof message !== "string") {
       return res.status(400).json({
@@ -44,23 +41,11 @@ export default async function handler(req, res) {
       });
     }
 
-    // =========================
-    // CREATE CHAT LOG TABLE
-    // =========================
-
+    // Simpan soalan user ke database
     await sql`
-      CREATE TABLE IF NOT EXISTS ai_chat_logs (
-        id SERIAL PRIMARY KEY,
-        question TEXT NOT NULL,
-        answer TEXT,
-        language VARCHAR(10),
-        created_at TIMESTAMPTZ DEFAULT NOW()
-      )
+      INSERT INTO ai_chat_logs (user_message)
+      VALUES (${message})
     `;
-
-    // =========================
-    // NURQUEST AI PROMPT
-    // =========================
 
     const systemPrompt = `
 Anda ialah NurQuest AI, pembantu pembelajaran Islam dalam laman web NurQuest.
@@ -97,9 +82,7 @@ ${language === "en" ? "English" : "Bahasa Melayu"}
         content: systemPrompt
       },
       ...cleanHistory.map(item => ({
-        role: item.role === "assistant"
-          ? "assistant"
-          : "user",
+        role: item.role === "assistant" ? "assistant" : "user",
         content: String(item.content || "")
       })),
       {
@@ -108,43 +91,20 @@ ${language === "en" ? "English" : "Bahasa Melayu"}
       }
     ];
 
-    // =========================
-    // ASK OPENAI
-    // =========================
-
     const response = await client.responses.create({
       model: "gpt-5.6-luna",
       input
     });
 
-    const answer = response.output_text;
-
-    // =========================
-    // SAVE QUESTION + ANSWER
-    // =========================
-
-    await sql`
-      INSERT INTO ai_chat_logs
-        (question, answer, language)
-      VALUES
-        (${message}, ${answer}, ${language})
-    `;
-
-    // =========================
-    // SEND ANSWER TO WEBSITE
-    // =========================
-
     return res.status(200).json({
-      answer
+      answer: response.output_text
     });
 
   } catch (error) {
-
-    console.error("NurQuest AI error:", error);
+    console.error(error);
 
     return res.status(500).json({
       error: "NurQuest AI sedang mengalami masalah. Cuba lagi."
     });
-
   }
 }
