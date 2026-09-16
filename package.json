@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "dependencies": {
-    "openai": "^6.0.0"
+    "openai": "^6.0.0",
     "@vercel/postgres": "^0.10.0"
   }
 }
