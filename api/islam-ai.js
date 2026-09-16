@@ -41,6 +41,15 @@ export default async function handler(req, res) {
       });
     }
 
+    try {
+  await sql`
+    INSERT INTO public.ai_chat_logs (user_message)
+    VALUES (${message})
+  `;
+} catch (dbError) {
+  console.error("Chat log error:", dbError);
+}
+    
     const systemPrompt = `
 Anda ialah NurQuest AI, pembantu pembelajaran Islam dalam laman web NurQuest.
 
