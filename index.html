@@ -3395,6 +3395,28 @@ async function loginUser() {
     }
 
     message.textContent = "Login successful!";
+  const { data: profile, error: profileError } = await supabaseClient
+    .from("profiles")
+    .select("*")
+    .eq("id", data.user.id)
+    .single();
+
+if (profileError) {
+    console.error(profileError);
+    return;
+}
+
+document.getElementById("profile-username").textContent = profile.username;
+document.getElementById("profile-xp").textContent = profile.xp;
+document.getElementById("profile-level").textContent = profile.level;
+document.getElementById("profile-streak").textContent = profile.streak;
+document.getElementById("profile-box").style.display = "block";
+}
+    async function logoutUser() {
+    await supabaseClient.auth.signOut();
+
+    document.getElementById("profile-box").style.display = "none";
+    document.getElementById("login-message").textContent = "Logged out.";
 }
 
 </script>
