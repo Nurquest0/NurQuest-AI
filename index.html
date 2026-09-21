@@ -1,0 +1,3394 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NurQuest | Akhlak Islamiah</title>
+
+<style>
+:root{
+  --pink:#ec4899;
+  --pink-dark:#be185d;
+  --pink-light:#fce7f3;
+  --bg:#fff7fb;
+  --card:#ffffff;
+  --text:#29232b;
+  --muted:#756b75;
+  --border:#f3d5e6;
+  --green:#16a34a;
+  --red:#dc2626;
+  --shadow:0 10px 30px rgba(190,24,93,.10);
+}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  transition:.25s;
+}
+
+button,
+input{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:rgba(255,255,255,.95);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+}
+
+.topbar{
+  max-width:1150px;
+  margin:auto;
+  padding:14px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:var(--pink-dark);
+  font-size:21px;
+  font-weight:800;
+}
+
+.brand-icon{
+  background:var(--pink-light);
+  padding:8px;
+  border-radius:12px;
+}
+
+nav{
+  display:flex;
+  gap:5px;
+  overflow-x:auto;
+}
+
+nav button{
+  border:0;
+  background:transparent;
+  color:var(--muted);
+  padding:9px 11px;
+  border-radius:10px;
+  white-space:nowrap;
+}
+
+nav button:hover,
+nav button.active{
+  background:var(--pink-light);
+  color:var(--pink-dark);
+}
+
+main{
+  max-width:1150px;
+  margin:auto;
+  padding:28px 20px 60px;
+}
+
+.section{
+  display:none;
+}
+
+.section.active{
+  display:block;
+}
+
+.hero{
+  padding:35px;
+  border:1px solid var(--border);
+  border-radius:25px;
+  background:linear-gradient(135deg,#fce7f3,#ffffff);
+  box-shadow:var(--shadow);
+}
+
+.hero h1{
+  font-size:clamp(30px,5vw,48px);
+  margin:0 0 10px;
+}
+
+.hero p{
+  max-width:700px;
+  line-height:1.7;
+  color:var(--muted);
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+  margin-top:18px;
+}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:20px;
+  box-shadow:var(--shadow);
+}
+
+.stat{
+  font-size:30px;
+  font-weight:800;
+  color:var(--pink-dark);
+}
+
+.muted{
+  color:var(--muted);
+}
+
+.btn{
+  border:0;
+  border-radius:12px;
+  padding:11px 16px;
+  font-weight:700;
+}
+
+.primary{
+  background:var(--pink);
+  color:white;
+}
+
+.secondary{
+  background:var(--pink-light);
+  color:var(--pink-dark);
+}
+
+.danger{
+  background:#fee2e2;
+  color:#b91c1c;
+}
+
+.row{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+.topic-tabs{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin:18px 0;
+}
+
+.topic-tabs button{
+  border:1px solid var(--border);
+  background:white;
+  padding:10px 14px;
+  border-radius:12px;
+}
+
+.topic-tabs button.active{
+  background:var(--pink);
+  color:white;
+}
+
+.note-list{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px;
+}
+
+.note{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:18px;
+}
+
+.note p{
+  line-height:1.7;
+}
+
+.tag{
+  display:inline-block;
+  background:var(--pink-light);
+  color:var(--pink-dark);
+  border-radius:999px;
+  padding:5px 9px;
+  font-size:12px;
+  font-weight:700;
+}
+
+.quizbox{
+  max-width:760px;
+  margin:auto;
+}
+
+.option{
+  width:100%;
+  text-align:left;
+  border:1px solid var(--border);
+  background:white;
+  padding:14px;
+  border-radius:13px;
+  margin:8px 0;
+}
+
+.option:hover{
+  border-color:var(--pink);
+}
+
+.option.correct{
+  border-color:#86efac;
+  background:#f0fdf4;
+}
+
+.option.wrong{
+  border-color:#fca5a5;
+  background:#fef2f2;
+}
+
+.option:disabled{
+  cursor:default;
+}
+
+.letter{
+  font-weight:800;
+  color:var(--pink-dark);
+  margin-right:8px;
+}
+
+.progress{
+  height:10px;
+  background:var(--pink-light);
+  border-radius:20px;
+  overflow:hidden;
+}
+
+.progress-bar{
+  height:100%;
+  background:var(--pink);
+  transition:.3s;
+}
+
+.timer{
+  color:var(--pink-dark);
+  font-weight:800;
+}
+
+.feedback{
+  display:none;
+  padding:13px;
+  border-radius:12px;
+  margin-top:12px;
+}
+
+.feedback.show{
+  display:block;
+}
+
+.feedback.good{
+  background:#f0fdf4;
+  color:#166534;
+}
+
+.feedback.bad{
+  background:#fef2f2;
+  color:#991b1b;
+}
+
+.achievements{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.achievement.locked{
+  opacity:.4;
+}
+
+/* AI */
+
+.ai-wrap{
+  max-width:850px;
+  margin:auto;
+}
+
+.ai-header{
+  padding:22px;
+  background:linear-gradient(135deg,#fce7f3,#ffffff);
+  border:1px solid var(--border);
+  border-radius:20px 20px 0 0;
+}
+
+.ai-header h2{
+  margin:0;
+}
+
+.chat{
+  height:430px;
+  overflow-y:auto;
+  padding:18px;
+  background:white;
+  border-left:1px solid var(--border);
+  border-right:1px solid var(--border);
+}
+
+.message{
+  display:flex;
+  margin:12px 0;
+}
+
+.message.user{
+  justify-content:flex-end;
+}
+
+.bubble{
+  max-width:78%;
+  padding:12px 15px;
+  border-radius:17px;
+  line-height:1.6;
+  white-space:pre-wrap;
+}
+
+.message.user .bubble{
+  background:var(--pink);
+  color:white;
+  border-bottom-right-radius:5px;
+}
+
+.message.bot .bubble{
+  background:var(--pink-light);
+  color:#000000 !important;
+  border-bottom-left-radius:5px;
+}
+
+.ai-form{
+  display:flex;
+  gap:8px;
+  padding:12px;
+  background:white;
+  border:1px solid var(--border);
+  border-radius:0 0 20px 20px;
+}
+
+.ai-form input{
+  flex:1;
+  min-width:0;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:12px;
+  outline:none;
+}
+
+.ai-form input:focus{
+  border-color:var(--pink);
+}
+
+.ai-chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  margin-top:12px;
+}
+
+.ai-chips button{
+  border:1px solid var(--border);
+  background:white;
+  border-radius:999px;
+  padding:7px 11px;
+  font-size:12px;
+}
+
+/* settings */
+
+.setting{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  padding:16px 0;
+  border-bottom:1px solid var(--border);
+}
+
+select{
+  padding:9px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:white;
+}
+
+/* DARK MODE */
+
+.dark{
+  --bg:#171217;
+  --card:#241c23;
+  --text:#f7eaf2;
+  --muted:#cbbbc5;
+  --border:#4b3041;
+}
+
+.dark header{
+  background:rgba(30,23,29,.95);
+}
+
+.dark .hero,
+.dark .note,
+.dark .card,
+.dark .option,
+.dark .chat,
+.dark .ai-form,
+.dark .ai-chips button,
+.dark select,
+.dark .topic-tabs button{
+  background:#241c23;
+  color:var(--text);
+}
+
+.dark nav button{
+  color:#cbbbc5;
+}
+
+.dark nav button.active{
+  background:#3a2030;
+}
+
+.dark .ai-header{
+  background:#2e2029;
+}
+
+.dark .message.bot .bubble{
+  color:#f7eaf2;
+}
+
+@media(max-width:800px){
+
+  .topbar{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .grid,
+  .note-list,
+  .achievements{
+    grid-template-columns:1fr;
+  }
+
+  main{
+    padding:20px 14px 50px;
+  }
+
+  .hero{
+    padding:25px;
+  }
+}
+</style>
+</head>
+
+<body>
+<div id="auth-section">
+
+    <div id="login-box">
+        <h2>Welcome to NurQuest 👋</h2>
+        <p>Login to save your progress.</p>
+
+        <input type="email" id="login-email" placeholder="Email">
+
+        <input type="password" id="login-password" placeholder="Password">
+
+        <button onclick="loginUser()">Login</button>
+
+        <p>
+            Don't have an account?
+            <button onclick="showSignup()">Sign Up</button>
+        </p>
+
+        <p id="login-message"></p>
+    </div>
+
+
+    <div id="signup-box" style="display:none;">
+
+        <h2>Create your NurQuest account ✨</h2>
+
+        <input type="text" id="signup-username" placeholder="Username">
+
+        <input type="email" id="signup-email" placeholder="Email">
+
+        <input type="password" id="signup-password" placeholder="Password">
+
+        <button onclick="signupUser()">Create Account</button>
+
+        <p>
+            Already have an account?
+            <button onclick="showLogin()">Login</button>
+        </p>
+
+        <p id="signup-message"></p>
+    </div>
+
+</div>
+<header>
+  <div class="topbar">
+
+    <div class="brand">
+      <span class="brand-icon">🌸</span>
+      NurQuest
+    </div>
+
+    <nav id="nav"></nav>
+
+  </div>
+</header>
+
+
+<main>
+
+<!-- ================= HOME ================= -->
+
+<section id="home" class="section active">
+
+  <div class="hero">
+
+    <h1 id="heroTitle">
+      Belajar Akhlak, Bina Diri 🌸
+    </h1>
+
+    <p id="heroText">
+      NurQuest ialah platform pembelajaran Islam yang ringkas,
+      moden dan interaktif. Belajar nota, cuba kuiz, lihat perkembangan
+      dan berbual dengan Akhlak AI.
+    </p>
+
+    <div class="row">
+
+      <button class="btn primary"
+              onclick="showSection('notes')">
+        📚 Mula Belajar
+      </button>
+
+      <button class="btn secondary"
+              onclick="showSection('ai')">
+        🤖 Akhlak AI
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="muted">⭐ XP</div>
+      <div class="stat" id="homeXP">0</div>
+      <div class="muted" id="homeLevel">Level 1</div>
+    </div>
+
+    <div class="card">
+      <div class="muted">🔥 Streak</div>
+      <div class="stat" id="homeStreak">0</div>
+      <div class="muted">hari</div>
+    </div>
+
+    <div class="card">
+      <div class="muted">🏆 Pencapaian</div>
+      <div class="stat" id="homeAch">0</div>
+      <div class="muted">Achievements</div>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= NOTES ================= -->
+
+<section id="notes" class="section">
+
+  <h2>📚 Nota</h2>
+
+  <p class="muted">
+    Belajar dua topik utama untuk NurQuest Level 1.
+  </p>
+
+  <div id="topicTabs" class="topic-tabs"></div>
+
+  <div id="notesList" class="note-list"></div>
+
+</section>
+
+
+<!-- ================= QUIZ ================= -->
+
+<section id="quiz" class="section">
+
+  <h2>📝 Kuiz</h2>
+
+  <div id="quizStart" class="card quizbox">
+
+    <h3>Uji pengetahuan anda</h3>
+
+    <p class="muted">
+      10 soalan rawak. Zon Cabaran memberikan 20 saat
+      untuk setiap soalan.
+    </p>
+
+    <div class="row">
+
+      <button class="btn primary"
+              onclick="startQuiz('relaxed')">
+        🌿 Zon Santai
+      </button>
+
+      <button class="btn secondary"
+              onclick="startQuiz('challenge')">
+        ⚡ Zon Cabaran
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div id="quizArea"
+       class="quizbox"
+       style="display:none">
+
+    <div class="card">
+
+      <div class="row"
+           style="justify-content:space-between">
+
+        <b id="qNumber"></b>
+
+        <span class="timer"
+              id="timer">
+        </span>
+
+      </div>
+
+      <div class="progress"
+           style="margin:14px 0">
+
+        <div id="qProgress"
+             class="progress-bar"
+             style="width:0%">
+        </div>
+
+      </div>
+
+      <h3 id="qText"></h3>
+
+      <div id="options"></div>
+
+      <div id="feedback"
+           class="feedback">
+      </div>
+
+      <div class="row"
+           style="justify-content:flex-end;margin-top:12px">
+
+        <button id="nextBtn"
+                class="btn primary"
+                onclick="nextQuestion()"
+                disabled>
+          Seterusnya →
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= PERFORMANCE ================= -->
+
+<section id="performance" class="section">
+
+  <h2>📊 Prestasi</h2>
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="muted">XP</div>
+      <div class="stat" id="perfXP">0</div>
+    </div>
+
+    <div class="card">
+      <div class="muted">Kuiz</div>
+      <div class="stat" id="perfQuiz">0</div>
+    </div>
+
+    <div class="card">
+      <div class="muted">Skor terbaik</div>
+      <div class="stat" id="perfBest">0%</div>
+    </div>
+
+  </div>
+
+
+  <div class="card"
+       style="margin-top:18px">
+
+    <h3 id="levelTitle">
+      Level 1 — 🌱 Pencetus Akhlak
+    </h3>
+
+    <div class="progress">
+
+      <div id="levelProgress"
+           class="progress-bar">
+      </div>
+
+    </div>
+
+    <p id="levelText"
+       class="muted">
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- ================= ACHIEVEMENTS ================= -->
+
+<section id="achievements" class="section">
+
+  <h2>🏆 Pencapaian</h2>
+
+  <div id="achievementList"
+       class="achievements">
+  </div>
+
+</section>
+
+
+<!-- ================= AI ================= -->
+
+<section id="ai" class="section">
+
+  <div class="ai-wrap">
+
+    <div class="ai-header">
+
+      <h2>🤖 Akhlak AI</h2>
+
+      <p class="muted">
+        Tanya menggunakan bahasa sendiri.
+        Tak perlu ikut ayat dalam nota.
+      </p>
+
+    </div>
+
+
+    <div id="chat"
+         class="chat">
+    </div>
+
+
+    <form class="ai-form"
+          onsubmit="sendAI(event)">
+
+      <input
+        id="aiInput"
+        autocomplete="off"
+        placeholder="Contoh: macam mana nak jadi lebih sabar?"
+      >
+
+      <button class="btn primary">
+        Hantar
+      </button>
+
+    </form>
+
+
+    <div class="ai-chips">
+
+      <button onclick="quickAI('Apa maksud tabayyun?')">
+        Apa maksud tabayyun?
+      </button>
+
+      <button onclick="quickAI('Macam mana nak jadi lebih sabar?')">
+        Macam mana nak jadi lebih sabar?
+      </button>
+
+      <button onclick="quickAI('Apa adab dengan ibu bapa?')">
+        Adab dengan ibu bapa
+      </button>
+
+      <button onclick="quickAI('What should I do if my friend lies to me?')">
+        Friend lies
+      </button>
+
+    </div>
+
+
+    <p class="muted"
+       style="font-size:12px;margin:12px">
+
+      Akhlak AI Level 1 ialah chatbot pembelajaran
+      berasaskan knowledge base tempatan. Untuk persoalan
+      fiqh, fatwa atau isu yang kompleks, semak dengan
+      ustaz/ustazah atau pihak berautoriti.
+
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- ================= SETTINGS ================= -->
+
+<section id="settings" class="section">
+
+  <h2>⚙️ Tetapan</h2>
+
+  <div class="card">
+
+    <div class="setting">
+
+      <span>
+        🌐 Bahasa / Language
+      </span>
+
+      <select id="language"
+              onchange="setLanguage(this.value)">
+
+        <option value="ms">
+          Bahasa Melayu
+        </option>
+
+        <option value="en">
+          English
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div class="setting">
+
+      <span>
+        🔊 Bunyi
+      </span>
+
+      <button id="soundBtn"
+              class="btn secondary"
+              onclick="toggleSound()">
+        ON
+      </button>
+
+    </div>
+
+
+    <div class="setting">
+
+      <span>
+        🌙 Mod Gelap
+      </span>
+
+      <button id="darkBtn"
+              class="btn secondary"
+              onclick="toggleDark()">
+        OFF
+      </button>
+
+    </div>
+
+
+    <div style="padding-top:18px">
+
+      <button class="btn danger"
+              onclick="resetData()">
+        Reset Progress
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+
+
+<script>
+
+/* =========================================================
+   DATA
+========================================================= */
+
+const notes = {
+
+  akhlak: {
+
+    labelMS:"Akhlak Islamiah",
+    labelEN:"Islamic Character",
+
+    items:[
+
+      [
+        "Maksud Akhlak",
+        "Akhlak ialah sifat dan tingkah laku seseorang yang tercermin melalui perbuatan, percakapan dan sikap.",
+        "Akhlak yang baik dibina melalui ilmu, latihan dan amalan yang konsisten."
+      ],
+
+      [
+        "Akhlak Mahmudah",
+        "Akhlak mahmudah ialah akhlak terpuji seperti jujur, amanah, sabar, rendah hati dan berbuat baik.",
+        "Contoh mudah ialah bercakap benar walaupun perkara itu tidak menguntungkan diri sendiri."
+      ],
+
+      [
+        "Akhlak Mazmumah",
+        "Akhlak mazmumah ialah sifat tercela seperti sombong, hasad, fitnah, menipu dan mengumpat.",
+        "Kenal pasti kelemahan diri dan cuba menggantikannya dengan sifat yang baik."
+      ],
+
+      [
+        "Akhlak kepada Ibu Bapa",
+        "Islam mengajar kita menghormati dan berbuat baik kepada ibu bapa.",
+        "Gunakan kata-kata yang lembut, bantu mereka dan jangan menyakiti hati mereka."
+      ],
+
+      [
+        "Akhlak dengan Guru",
+        "Hormati guru, dengar ketika mereka mengajar dan bertanya dengan sopan.",
+        "Perbezaan pendapat boleh disampaikan dengan adab dan bahasa yang baik."
+      ],
+
+      [
+        "Akhlak di Media Sosial",
+        "Semak maklumat sebelum menyebarkan, elakkan fitnah dan jangan menghina orang lain.",
+        "Konsep tabayyun mengajar kita supaya tidak terburu-buru mempercayai berita."
+      ],
+
+      [
+        "Akhlak terhadap Alam Sekitar",
+        "Manusia mempunyai tanggungjawab menjaga alam dan tidak melakukan kerosakan.",
+        "Elakkan pembaziran, jaga kebersihan dan gunakan sumber secara bertanggungjawab."
+      ]
+
+    ]
+
+  },
+
+
+  islam: {
+
+    labelMS:"Pengetahuan Islam",
+    labelEN:"Islamic Knowledge",
+
+    items:[
+
+      [
+        "Burung Hudhud",
+        "Kisah Nabi Sulaiman AS dan burung Hudhud disebut dalam Surah An-Naml.",
+        "Hudhud membawa berita tentang kaum Saba' dan kisah ini menunjukkan kepentingan menyampaikan maklumat dengan amanah."
+      ],
+
+      [
+        "Semut dan Nabi Sulaiman AS",
+        "Surah An-Naml menceritakan seekor semut memberi amaran kepada semut lain apabila tentera Nabi Sulaiman AS datang.",
+        "Kisah ini mengingatkan kita tentang kebijaksanaan, perhatian terhadap makhluk dan rasa syukur."
+      ],
+
+      [
+        "Adab Selepas Bersin",
+        "Orang yang bersin mengucapkan Alhamdulillah. Orang yang mendengar menjawab Yarhamukallah.",
+        "Kemudian orang yang bersin menjawab Yahdikumullahu wa yuslih balakum."
+      ],
+
+      [
+        "Adab Ketika Menguap",
+        "Kita dianjurkan menahan menguap sedaya yang mampu dan menutup mulut.",
+        "Ini termasuk dalam adab yang baik."
+      ],
+
+      [
+        "Doa Ketika Hujan",
+        "Antara doa yang masyhur ketika hujan ialah Allahumma sayyiban nafi'an.",
+        "Maksudnya: Ya Allah, jadikanlah hujan ini hujan yang bermanfaat."
+      ],
+
+      [
+        "Bagaimana Hadis Dinilai?",
+        "Ulama hadis meneliti sanad, perawi dan matan serta menggunakan ilmu seperti jarh wa ta'dil.",
+        "Tidak semua perkara yang tersebar atas nama hadis adalah hadis sahih."
+      ],
+
+      [
+        "Mengapa Menghadap Kaabah?",
+        "Kaabah menjadi arah kiblat umat Islam ketika solat.",
+        "Menghadap kiblat melambangkan kesatuan umat Islam dalam ibadah. Umat Islam menyembah Allah, bukan Kaabah."
+      ],
+
+      [
+        "Isra' dan Mi'raj",
+        "Isra' ialah perjalanan Nabi Muhammad SAW pada waktu malam yang disebut secara jelas dalam Surah al-Isra' ayat 1.",
+        "Peristiwa Mi'raj pula dihuraikan dalam hadis dan mempunyai kedudukan penting dalam sejarah Islam."
+      ]
+
+    ]
+
+  }
+
+};
+
+
+/* =========================================================
+   QUIZ QUESTIONS
+========================================================= */
+
+const questions = [
+
+  [
+    "Apakah maksud akhlak?",
+    "Sifat dan tingkah laku yang tercermin dalam diri seseorang",
+    ["Nama sesuatu tempat","Jenis makanan","Warna pakaian"],
+    0
+  ],
+
+  [
+    "Yang manakah contoh akhlak mahmudah?",
+    "Amanah",
+    ["Sombong","Hasad","Fitnah"],
+    0
+  ],
+
+  [
+    "Apa yang patut dilakukan sebelum menyebarkan berita?",
+    "Semak kesahihan berita",
+    ["Terus sebarkan","Tambah cerita","Padam semua komen"],
+    0
+  ],
+
+  [
+    "Jika tidak bersetuju dengan guru, apakah tindakan terbaik?",
+    "Bercakap dengan sopan dan beradab",
+    ["Meninggikan suara","Mengejek","Mengabaikannya"],
+    0
+  ],
+
+  [
+    "Orang yang bersin mengucapkan...",
+    "Alhamdulillah",
+    ["Subhanallah","Allahu Akbar","Astaghfirullah"],
+    0
+  ],
+
+  [
+    "Apakah maksud tabayyun?",
+    "Menyemak dan memastikan sesuatu berita",
+    ["Menyebarkan berita","Menghafal berita","Mengubah berita"],
+    0
+  ],
+
+  [
+    "Surah apakah yang menceritakan kisah semut dan Nabi Sulaiman AS?",
+    "Surah An-Naml",
+    ["Surah Al-Fatihah","Surah Al-Kahf","Surah Al-Ikhlas"],
+    0
+  ],
+
+  [
+    "Apakah arah kiblat umat Islam?",
+    "Kaabah",
+    ["Masjid al-Aqsa","Gunung Uhud","Madinah"],
+    0
+  ],
+
+  [
+    "Yang manakah akhlak mazmumah?",
+    "Sombong",
+    ["Sabar","Jujur","Amanah"],
+    0
+  ],
+
+  [
+    "Doa 'Allahumma sayyiban nafi'an' berkaitan dengan...",
+    "Hujan",
+    ["Makan","Tidur","Musafir"],
+    0
+  ],
+
+  [
+    "Apakah adab ketika menguap?",
+    "Cuba menahan dan menutup mulut",
+    ["Menjerit","Ketawa kuat","Bercakap"]
+    ,0
+  ],
+
+  [
+    "Dalam penilaian hadis, sanad merujuk kepada...",
+    "Rangkaian perawi riwayat",
+    ["Tajuk buku","Tempat solat","Nama surah"],
+    0
+  ],
+
+  [
+    "Isra' disebut dengan jelas dalam...",
+    "Surah al-Isra' ayat 1",
+    ["Surah al-Falaq","Surah al-Masad","Surah al-Kawthar"],
+    0
+  ],
+
+  [
+    "Apakah sikap terbaik terhadap ibu bapa?",
+    "Berbuat baik dan bercakap dengan lembut",
+    ["Meninggikan suara","Menghina","Mengabaikan"],
+    0
+  ],
+
+  [
+    "Mengapa umat Islam menghadap kiblat?",
+    "Sebagai arah yang sama dalam ibadah solat",
+    ["Kerana Kaabah disembah","Untuk menunjukkan kekayaan","Kerana wajib tinggal di Makkah"],
+    0
+  ]
+
+];
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let state =
+JSON.parse(localStorage.getItem("nurquestLevel1")) ||
+{
+  xp:0,
+  quizCount:0,
+  best:0,
+  streak:0,
+  lastActivity:null,
+  sound:true,
+  dark:false,
+  lang:"ms",
+  read:[],
+  achievements:{},
+  correctTotal:0,
+  chat:[]
+};
+
+let quiz=[];
+let currentQuestion=0;
+let score=0;
+let answered=false;
+let timer=null;
+let timeLeft=0;
+let mode="relaxed";
+
+
+/* =========================================================
+   SAVE
+========================================================= */
+
+function save(){
+
+  localStorage.setItem(
+    "nurquestLevel1",
+    JSON.stringify(state)
+  );
+
+}
+
+
+/* =========================================================
+   RANDOM SHUFFLE
+========================================================= */
+
+function shuffle(array){
+
+  const arr=[...array];
+
+  for(let i=arr.length-1;i>0;i--){
+
+    const j=Math.floor(Math.random()*(i+1));
+
+    [arr[i],arr[j]]=[arr[j],arr[i]];
+
+  }
+
+  return arr;
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function buildNav(){
+
+  const items=[
+
+    ["home","🏠","Utama","Home"],
+
+    ["notes","📚","Nota","Notes"],
+
+    ["quiz","📝","Kuiz","Quiz"],
+
+    ["performance","📊","Prestasi","Performance"],
+
+    ["achievements","🏆","Pencapaian","Achievements"],
+
+    ["ai","🤖","AI","AI"],
+
+    ["settings","⚙️","Tetapan","Settings"]
+
+  ];
+
+
+  document.getElementById("nav").innerHTML =
+  items.map(item=>`
+
+    <button
+      data-id="${item[0]}"
+      onclick="showSection('${item[0]}')">
+
+      <span class="ms">${item[1]} ${item[2]}</span>
+
+      <span class="en"
+            style="display:none">
+        ${item[1]} ${item[3]}
+      </span>
+
+    </button>
+
+  `).join("");
+
+}
+
+
+function showSection(id){
+
+  document
+  .querySelectorAll(".section")
+  .forEach(section=>{
+    section.classList.remove("active");
+  });
+
+
+  document
+  .getElementById(id)
+  .classList.add("active");
+
+
+  document
+  .querySelectorAll("#nav button")
+  .forEach(button=>{
+    button.classList.toggle(
+      "active",
+      button.dataset.id===id
+    );
+  });
+
+
+  if(id==="notes"){
+    renderNotes();
+  }
+
+  if(id==="performance"){
+    renderPerformance();
+  }
+
+  if(id==="achievements"){
+    renderAchievements();
+  }
+
+  if(id==="ai"){
+    renderChat();
+  }
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+/* =========================================================
+   LEVEL
+========================================================= */
+
+function getLevel(){
+
+  return Math.floor(state.xp/100)+1;
+
+}
+
+
+function getLevelTitle(level){
+
+  if(level>=20){
+    return "👑 Juara Akhlak";
+  }
+
+  if(level>=10){
+    return "⭐ Wira Akhlak";
+  }
+
+  if(level>=5){
+    return "🌿 Sahabat Akhlak";
+  }
+
+  return "🌱 Pencetus Akhlak";
+
+}
+
+
+/* =========================================================
+   XP
+========================================================= */
+
+function addXP(amount){
+
+  state.xp += amount;
+
+  updateStreak();
+
+  checkAchievements();
+
+  save();
+
+  renderAll();
+
+}
+
+
+/* =========================================================
+   STREAK
+========================================================= */
+
+function updateStreak(){
+
+  const today =
+  new Date().toISOString().slice(0,10);
+
+
+  if(state.lastActivity===today){
+    return;
+  }
+
+
+  if(!state.lastActivity){
+
+    state.streak=1;
+
+  }else{
+
+    const previous =
+    new Date(state.lastActivity);
+
+    const current =
+    new Date(today);
+
+    const difference =
+    Math.round(
+      (current-previous)/86400000
+    );
+
+
+    if(difference===1){
+
+      state.streak++;
+
+    }else{
+
+      state.streak=1;
+
+    }
+
+  }
+
+
+  state.lastActivity=today;
+
+}
+
+
+/* =========================================================
+   HOME
+========================================================= */
+
+function renderHome(){
+
+  const level=getLevel();
+
+  document.getElementById("homeXP")
+  .textContent=state.xp;
+
+  document.getElementById("homeLevel")
+  .textContent=
+  `Level ${level} — ${getLevelTitle(level)}`;
+
+  document.getElementById("homeStreak")
+  .textContent=state.streak;
+
+  document.getElementById("homeAch")
+  .textContent=
+  Object.values(state.achievements)
+  .filter(Boolean).length;
+
+}
+
+
+/* =========================================================
+   NOTES
+========================================================= */
+
+function renderTopicTabs(){
+
+  const active =
+  document
+  .querySelector(".topic-tabs .active")
+  ?.dataset.topic ||
+  "akhlak";
+
+
+  document.getElementById("topicTabs")
+  .innerHTML =
+  Object.entries(notes)
+  .map(([key,value])=>`
+
+    <button
+      data-topic="${key}"
+      class="${key===active?"active":""}"
+      onclick="renderNotes('${key}')">
+
+      ${key==="akhlak"?"🌸":"📖"}
+
+      ${state.lang==="ms"
+        ?value.labelMS
+        :value.labelEN}
+
+    </button>
+
+  `).join("");
+
+}
+
+
+function renderNotes(topic="akhlak"){
+
+  renderTopicTabs();
+
+
+  document
+  .querySelectorAll("#topicTabs button")
+  .forEach(button=>{
+    button.classList.toggle(
+      "active",
+      button.dataset.topic===topic
+    );
+  });
+
+
+  const data=notes[topic].items;
+
+
+  document.getElementById("notesList")
+  .innerHTML =
+  data.map((note,index)=>{
+
+    const id=topic+"-"+index;
+
+    const isRead=
+    state.read.includes(id);
+
+
+    return `
+
+      <article class="note">
+
+        <span class="tag">
+          ${isRead?"✓ Dibaca":"Nota"}
+        </span>
+
+        <h3>${note[0]}</h3>
+
+        <p>
+          <b>${note[1]}</b>
+        </p>
+
+        <p>
+          ${note[2]}
+        </p>
+
+        <button
+          class="btn ${isRead?"secondary":"primary"}"
+          onclick="readNote('${id}')">
+
+          ${isRead
+            ?"✓ Sudah Dibaca"
+            :"Tandakan Dibaca"}
+
+        </button>
+
+      </article>
+
+    `;
+
+  }).join("");
+
+}
+
+
+function readNote(id){
+
+  if(!state.read.includes(id)){
+
+    state.read.push(id);
+
+    addXP(5);
+
+  }else{
+
+    save();
+
+  }
+
+
+  renderNotes(
+    id.startsWith("islam-")
+    ?"islam"
+    :"akhlak"
+  );
+
+}
+
+
+/* =========================================================
+   QUIZ
+========================================================= */
+
+function startQuiz(selectedMode){
+
+  mode=selectedMode;
+
+  quiz=
+  shuffle(questions)
+  .slice(0,10);
+
+  currentQuestion=0;
+  score=0;
+
+  clearInterval(timer);
+
+  updateStreak();
+
+  save();
+
+
+  document.getElementById("quizStart")
+  .style.display="none";
+
+  document.getElementById("quizArea")
+  .style.display="block";
+
+
+  loadQuestion();
+
+}
+
+
+function loadQuestion(){
+
+  answered=false;
+
+  clearInterval(timer);
+
+
+  const question=
+  quiz[currentQuestion];
+
+
+  document.getElementById("qNumber")
+  .textContent=
+  `${currentQuestion+1} / ${quiz.length}`;
+
+
+  document.getElementById("qProgress")
+  .style.width=
+  `${((currentQuestion+1)/quiz.length)*100}%`;
+
+
+  document.getElementById("qText")
+  .textContent=
+  question[0];
+
+
+  document.getElementById("feedback")
+  .className="feedback";
+
+
+  document.getElementById("nextBtn")
+  .disabled=true;
+
+
+  /*
+    Buat jawapan yang betul dan salah
+    kemudian shuffle.
+  */
+
+  const choices=[
+    {
+      text:question[1],
+      correct:true
+    },
+    ...question[2].map(text=>({
+      text,
+      correct:false
+    }))
+  ];
+
+
+  const shuffled=
+  shuffle(choices);
+
+
+  document.getElementById("options")
+  .innerHTML=
+  shuffled.map((choice,index)=>`
+
+    <button
+      class="option"
+      data-correct="${choice.correct}"
+      onclick="chooseAnswer(this,${choice.correct})">
+
+      <span class="letter">
+        ${String.fromCharCode(65+index)}.
+      </span>
+
+      ${choice.text}
+
+    </button>
+
+  `).join("");
+
+
+  if(mode==="challenge"){
+
+    timeLeft=20;
+
+    document.getElementById("timer")
+    .textContent="⏱ 20s";
+
+
+    timer=setInterval(()=>{
+
+      timeLeft--;
+
+      document.getElementById("timer")
+      .textContent=
+      `⏱ ${timeLeft}s`;
+
+
+      if(timeLeft<=0){
+
+        clearInterval(timer);
+
+        timeOut();
+
+      }
+
+    },1000);
+
+  }else{
+
+    document.getElementById("timer")
+    .textContent="Zon Santai";
+
+  }
+
+}
+
+
+function chooseAnswer(button,isCorrect){
+
+  if(answered){
+    return;
+  }
+
+
+  answered=true;
+
+  clearInterval(timer);
+
+
+  document
+  .querySelectorAll(".option")
+  .forEach(option=>{
+    option.disabled=true;
+  });
+
+
+  if(isCorrect){
+
+    score++;
+
+    state.correctTotal++;
+
+    state.xp+=10;
+
+    button.classList.add("correct");
+
+    playCorrectSound();
+
+    showFeedback(
+      true,
+      "Betul!"
+    );
+
+  }else{
+
+    button.classList.add("wrong");
+
+
+    document
+    .querySelectorAll(".option")
+    .forEach(option=>{
+
+      if(option.dataset.correct==="true"){
+        option.classList.add("correct");
+      }
+
+    });
+
+
+    playWrongSound();
+
+    showFeedback(
+      false,
+      "Belum tepat. Jawapan yang betul ditunjukkan dengan warna hijau."
+    );
+
+  }
+
+
+  document.getElementById("nextBtn")
+  .disabled=false;
+
+
+  checkAchievements();
+
+  save();
+
+  renderAll();
+
+}
+
+
+function timeOut(){
+
+  if(answered){
+    return;
+  }
+
+
+  answered=true;
+
+
+  document
+  .querySelectorAll(".option")
+  .forEach(option=>{
+
+    option.disabled=true;
+
+    if(option.dataset.correct==="true"){
+      option.classList.add("correct");
+    }
+
+  });
+
+
+  playWrongSound();
+
+
+  showFeedback(
+    false,
+    "Masa tamat. Jawapan yang betul ditunjukkan dengan warna hijau."
+  );
+
+
+  document.getElementById("nextBtn")
+  .disabled=false;
+
+}
+
+
+function showFeedback(correct,text){
+
+  const feedback=
+  document.getElementById("feedback");
+
+
+  feedback.className=
+  "feedback show "+
+  (correct?"good":"bad");
+
+
+  feedback.textContent=text;
+
+}
+
+
+function nextQuestion(){
+
+  currentQuestion++;
+
+
+  if(currentQuestion<quiz.length){
+
+    loadQuestion();
+
+  }else{
+
+    finishQuiz();
+
+  }
+
+}
+
+
+function finishQuiz(){
+
+  clearInterval(timer);
+
+
+  state.quizCount++;
+
+
+  const percentage=
+  Math.round(
+    (score/quiz.length)*100
+  );
+
+
+  state.best=
+  Math.max(
+    state.best,
+    percentage
+  );
+
+
+  let earnedXP=50;
+
+
+  if(percentage===100){
+
+    state.xp+=30;
+
+    earnedXP+=30;
+
+    playAchievementSound();
+
+  }
+
+
+  updateStreak();
+
+  checkAchievements();
+
+  save();
+
+  renderAll();
+
+
+  document.getElementById("quizArea")
+  .innerHTML=`
+
+    <div class="card"
+         style="text-align:center">
+
+      <h2>
+        🎉 Kuiz Selesai!
+      </h2>
+
+      <div class="stat">
+        ${score}/${quiz.length}
+      </div>
+
+      <p>
+        ${percentage}%
+      </p>
+
+      <p class="muted">
+        +${earnedXP} XP
+      </p>
+
+      <button
+        class="btn primary"
+        onclick="resetQuiz()">
+
+        Cuba Lagi
+
+      </button>
+
+    </div>
+
+  `;
+
+}
+
+
+function resetQuiz(){
+
+  document.getElementById("quizArea")
+  .style.display="none";
+
+  document.getElementById("quizStart")
+  .style.display="block";
+
+
+  document.getElementById("quizArea")
+  .innerHTML=`
+
+    <div class="card">
+
+      <div class="row"
+           style="justify-content:space-between">
+
+        <b id="qNumber"></b>
+
+        <span
+          class="timer"
+          id="timer">
+        </span>
+
+      </div>
+
+      <div class="progress"
+           style="margin:14px 0">
+
+        <div
+          id="qProgress"
+          class="progress-bar"
+          style="width:0%">
+        </div>
+
+      </div>
+
+      <h3 id="qText"></h3>
+
+      <div id="options"></div>
+
+      <div id="feedback"
+           class="feedback">
+      </div>
+
+      <div class="row"
+           style="justify-content:flex-end;margin-top:12px">
+
+        <button
+          id="nextBtn"
+          class="btn primary"
+          onclick="nextQuestion()"
+          disabled>
+
+          Seterusnya →
+
+        </button>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   PERFORMANCE
+========================================================= */
+
+function renderPerformance(){
+
+  document.getElementById("perfXP")
+  .textContent=state.xp;
+
+  document.getElementById("perfQuiz")
+  .textContent=state.quizCount;
+
+  document.getElementById("perfBest")
+  .textContent=state.best+"%";
+
+
+  const level=getLevel();
+
+  const currentXP=
+  state.xp%100;
+
+
+  document.getElementById("levelTitle")
+  .textContent=
+  `Level ${level} — ${getLevelTitle(level)}`;
+
+
+  document.getElementById("levelProgress")
+  .style.width=
+  currentXP+"%";
+
+
+  document.getElementById("levelText")
+  .textContent=
+  `${currentXP}/100 XP ke Level ${level+1}`;
+
+}
+
+
+/* =========================================================
+   ACHIEVEMENTS
+========================================================= */
+
+const achievements=[
+
+  [
+    "first",
+    "🌸",
+    "Langkah Pertama",
+    "Complete your first quiz"
+  ],
+
+  [
+    "correct10",
+    "🎯",
+    "10 Jawapan Betul",
+    "Get 10 correct answers"
+  ],
+
+  [
+    "perfect",
+    "💯",
+    "Skor Sempurna",
+    "Get 100% in a quiz"
+  ],
+
+  [
+    "reader",
+    "📚",
+    "Rajin Membaca",
+    "Read all Level 1 notes"
+  ],
+
+  [
+    "xp100",
+    "⭐",
+    "100 XP",
+    "Earn 100 XP"
+  ],
+
+  [
+    "streak3",
+    "🔥",
+    "3 Hari Berturut",
+    "Learn for 3 days"
+  ],
+
+  [
+    "streak7",
+    "🏅",
+    "7 Hari Berturut",
+    "Learn for 7 days"
+  ],
+
+  [
+    "level5",
+    "🌿",
+    "Sahabat Akhlak",
+    "Reach Level 5"
+  ]
+
+];
+
+
+function checkAchievements(){
+
+  if(state.quizCount>=1){
+    state.achievements.first=true;
+  }
+
+
+  if(state.correctTotal>=10){
+    state.achievements.correct10=true;
+  }
+
+
+  if(state.best===100){
+    state.achievements.perfect=true;
+  }
+
+
+  const totalNotes=
+  Object.values(notes)
+  .reduce(
+    (total,topic)=>
+    total+topic.items.length,
+    0
+  );
+
+
+  if(state.read.length>=totalNotes){
+    state.achievements.reader=true;
+  }
+
+
+  if(state.xp>=100){
+    state.achievements.xp100=true;
+  }
+
+
+  if(state.streak>=3){
+    state.achievements.streak3=true;
+  }
+
+
+  if(state.streak>=7){
+    state.achievements.streak7=true;
+  }
+
+
+  if(getLevel()>=5){
+    state.achievements.level5=true;
+  }
+
+}
+
+
+function renderAchievements(){
+
+  document.getElementById("achievementList")
+  .innerHTML=
+  achievements.map(item=>{
+
+    const unlocked=
+    !!state.achievements[item[0]];
+
+
+    return `
+
+      <div
+        class="card achievement
+        ${unlocked?"":"locked"}">
+
+        <div style="font-size:34px">
+          ${item[1]}
+        </div>
+
+        <h3>
+          ${item[2]}
+        </h3>
+
+        <p class="muted">
+
+          ${unlocked
+            ?"✓ Unlocked"
+            :item[3]}
+
+        </p>
+
+      </div>
+
+    `;
+
+  }).join("");
+
+}
+
+
+/* =========================================================
+   LANGUAGE
+========================================================= */
+
+function setLanguage(language){
+
+  state.lang=language;
+
+  save();
+
+  applyLanguage();
+
+  renderNotes();
+
+  renderChat();
+
+}
+
+
+function applyLanguage(){
+
+  const isMalay=
+  state.lang==="ms";
+
+
+  document.querySelectorAll(".ms")
+  .forEach(element=>{
+    element.style.display=
+    isMalay?"inline":"none";
+  });
+
+
+  document.querySelectorAll(".en")
+  .forEach(element=>{
+    element.style.display=
+    isMalay?"none":"inline";
+  });
+
+
+  document.getElementById("language")
+  .value=state.lang;
+
+
+  document.getElementById("aiInput")
+  .placeholder=
+  isMalay
+  ?"Contoh: macam mana nak jadi lebih sabar?"
+  :"Example: how can I become more patient?";
+
+}
+
+
+/* =========================================================
+   DARK MODE
+========================================================= */
+
+function toggleDark(){
+
+  state.dark=!state.dark;
+
+  document.body.classList.toggle(
+    "dark",
+    state.dark
+  );
+
+
+  document.getElementById("darkBtn")
+  .textContent=
+  state.dark?"ON":"OFF";
+
+
+  save();
+
+}
+
+
+/* =========================================================
+   SOUND
+========================================================= */
+
+function toggleSound(){
+
+  state.sound=!state.sound;
+
+
+  document.getElementById("soundBtn")
+  .textContent=
+  state.sound?"ON":"OFF";
+
+
+  save();
+
+
+  if(state.sound){
+
+    playCorrectSound();
+
+  }
+
+}
+
+
+let audioContext=null;
+
+
+function getAudio(){
+
+  if(!audioContext){
+
+    audioContext=
+    new (
+      window.AudioContext ||
+      window.webkitAudioContext
+    )();
+
+  }
+
+  return audioContext;
+
+}
+
+
+function playTone(
+  frequency,
+  duration,
+  type="sine",
+  volume=.05,
+  delay=0
+){
+
+  if(!state.sound){
+    return;
+  }
+
+
+  try{
+
+    const ctx=getAudio();
+
+    const oscillator=
+    ctx.createOscillator();
+
+    const gain=
+    ctx.createGain();
+
+
+    oscillator.type=type;
+
+    oscillator.frequency.value=
+    frequency;
+
+
+    const start=
+    ctx.currentTime+delay;
+
+
+    gain.gain.setValueAtTime(
+      .001,
+      start
+    );
+
+
+    gain.gain.exponentialRampToValueAtTime(
+      volume,
+      start+.01
+    );
+
+
+    gain.gain.exponentialRampToValueAtTime(
+      .001,
+      start+duration
+    );
+
+
+    oscillator.connect(gain);
+
+    gain.connect(ctx.destination);
+
+
+    oscillator.start(start);
+
+    oscillator.stop(
+      start+duration+.02
+    );
+
+  }catch(error){
+
+    console.log(error);
+
+  }
+
+}
+
+
+function playCorrectSound(){
+
+  /*
+    Bright "ding"
+  */
+
+  playTone(
+    659.25,
+    .12,
+    "sine",
+    .05
+  );
+
+  playTone(
+    880,
+    .16,
+    "sine",
+    .04,
+    .08
+  );
+
+}
+
+
+function playWrongSound(){
+
+  /*
+    Short "buzz"
+  */
+
+  playTone(
+    180,
+    .18,
+    "square",
+    .035
+  );
+
+  playTone(
+    120,
+    .16,
+    "square",
+    .025,
+    .08
+  );
+
+}
+
+
+function playAchievementSound(){
+
+  playTone(
+    523,
+    .12,
+    "sine",
+    .04
+  );
+
+  playTone(
+    659,
+    .12,
+    "sine",
+    .04,
+    .1
+  );
+
+  playTone(
+    784,
+    .20,
+    "sine",
+    .04,
+    .2
+  );
+
+}
+
+
+/* =========================================================
+   AI CHAT
+========================================================= */
+
+function escapeHTML(text){
+
+  return text.replace(
+    /[&<>"']/g,
+    character=>({
+
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#039;"
+
+    }[character])
+  );
+
+}
+
+
+function addChat(role,text){
+
+  state.chat.push({
+    role,
+    text
+  });
+
+
+  /*
+    Simpan hanya 30 mesej terakhir.
+  */
+
+  state.chat=
+  state.chat.slice(-30);
+
+
+  save();
+
+  renderChat();
+
+}
+
+
+function renderChat(){
+
+  const chat=
+  document.getElementById("chat");
+
+
+  if(state.chat.length===0){
+
+    chat.innerHTML=`
+
+      <div class="message bot">
+
+        <div class="bubble">
+
+          Assalamualaikum! 
+          
+          Saya Akhlak AI.
+
+          Tanya apa sahaja soalan berkaitan
+          Islam atau situasi harian yang anda
+          ingin fahami.
+
+        </div>
+
+      </div>
+
+    `;
+
+  }else{
+
+    chat.innerHTML=
+    state.chat.map(message=>`
+
+      <div class="message ${message.role}">
+
+        <div class="bubble">
+
+          ${escapeHTML(message.text)}
+
+        </div>
+
+      </div>
+
+    `).join("");
+
+  }
+
+
+  chat.scrollTop=
+  chat.scrollHeight;
+
+}
+
+
+function quickAI(question){
+
+  const input=
+  document.getElementById("aiInput");
+
+
+  input.value=question;
+
+  input.focus();
+
+}
+
+
+
+
+
+/* =========================================================
+   SIMPLE HUMAN-LANGUAGE AI
+========================================================= */
+
+function generateAIAnswer(originalQuestion){
+
+  const q=
+  originalQuestion
+  .toLowerCase()
+  .replace(/[?!.,'"`]/g," ");
+
+
+  const has=(...words)=>
+  words.some(word=>q.includes(word));
+
+
+  const english=
+  state.lang==="en";
+
+
+  /* SALAM */
+
+  if(
+    has(
+      "salam",
+      "assalamualaikum",
+      "assalamu"
+    )
+  ){
+
+    return english
+
+    ?`Waalaikumsalam 
+    
+Feel free to ask me about Islam, akhlak, worship, daily situations or Islamic knowledge. You can type your question naturally.`
+
+    :`Waalaikumussalam 
+
+Tanya sahaja tentang Islam, akhlak, ibadah, situasi harian atau pengetahuan Islam. Tak perlu gunakan ayat formal.`;
+
+  }
+
+
+  /* TABAYYUN */
+
+  if(
+    has(
+      "tabayyun",
+      "berita",
+      "viral",
+      "news",
+      "fake",
+      "maklumat",
+      "information"
+    )
+  ){
+
+    return english
+
+    ?`Tabayyun means checking and verifying information before believing or spreading it.
+
+If you see something viral, pause first, check the source and avoid spreading information that you are not sure about.`
+
+    :`Tabayyun bermaksud menyemak dan memastikan sesuatu maklumat sebelum mempercayai atau menyebarkannya.
+
+Kalau nampak sesuatu yang viral, berhenti seketika, semak sumber dan jangan sebarkan perkara yang belum pasti.`;
+
+  }
+
+
+  /* SABAR / MARAH */
+
+  if(
+    has(
+      "sabar",
+      "patient",
+      "patience",
+      "marah",
+      "anger",
+      "angry",
+      "geram"
+    )
+  ){
+
+    return english
+
+    ?`If you are trying to become more patient, try pausing before reacting, taking a breath, making du'a and choosing gentle words.
+
+In Islam, patience includes controlling yourself and responding in a good way. You do not have to pretend that you are not hurt or angry.`
+
+    :`Kalau nak jadi lebih sabar, cuba berhenti seketika sebelum bertindak, tarik nafas, berdoa dan pilih kata-kata yang lembut.
+
+Dalam Islam, sabar termasuk mengawal diri dan bertindak dengan cara yang baik. Sabar bukan bermaksud kita tak boleh rasa marah atau terluka.`;
+
+  }
+
+
+  /* PARENTS */
+
+  if(
+    has(
+      "ibu",
+      "bapa",
+      "mak",
+      "ayah",
+      "parents",
+      "mother",
+      "father"
+    )
+  ){
+
+    return english
+
+    ?`Islam strongly encourages kindness to parents.
+
+You can start with simple things: speak gently, help them, appreciate their efforts and avoid intentionally hurting them. If you disagree with them, try to communicate respectfully.`
+
+    :`Islam sangat menekankan supaya kita berbuat baik kepada ibu bapa.
+
+Kita boleh mula dengan perkara mudah: bercakap dengan lembut, membantu mereka, menghargai pengorbanan mereka dan mengelakkan perkara yang sengaja menyakiti hati mereka.
+
+Kalau tidak bersetuju, cuba bincang dengan sopan.`;
+
+  }
+
+
+  /* TEACHER */
+
+  if(
+    has(
+      "guru",
+      "cikgu",
+      "lecturer",
+      "teacher"
+    )
+  ){
+
+    return english
+
+    ?`Respecting teachers is part of good character. You can still ask questions, disagree or explain your feelings, but try to do it politely and calmly.
+
+Respect does not mean you cannot communicate your boundaries.`
+
+    :`Menghormati guru termasuk dalam akhlak yang baik.
+
+Kita masih boleh bertanya, tidak bersetuju atau menjelaskan perasaan, tetapi cuba sampaikan dengan sopan dan tenang.
+
+Menghormati seseorang tidak bermaksud kita tidak boleh menyatakan batas diri dengan baik.`;
+
+  }
+
+
+  /* GOSSIP */
+
+  if(
+    has(
+      "mengumpat",
+      "umpat",
+      "gossip",
+      "backbiting",
+      "ghibah"
+    )
+  ){
+
+    return english
+
+    ?`Ghibah, or backbiting, is a serious matter in Islam. It means mentioning something about another person that they would dislike being mentioned.
+
+If you have done it, stop, seek forgiveness from Allah and try not to repeat it.`
+
+    :`Mengumpat atau ghibah ialah perkara yang serius dalam Islam. Ia melibatkan menyebut sesuatu tentang seseorang yang dia tidak suka disebut.
+
+Jika sudah terlanjur, berhenti, mohon keampunan daripada Allah dan cuba jangan mengulanginya.`;
+
+  }
+
+
+  /* LYING / CHEATING */
+
+  if(
+    has(
+      "tipu",
+      "menipu",
+      "bohong",
+      "lie",
+      "lying",
+      "cheat",
+      "cheating",
+      "meniru"
+    )
+  ){
+
+    return english
+
+    ?`Honesty is an important Islamic value.
+
+If you made a mistake, telling the truth and taking responsibility is usually better than creating another lie to cover it. In school, cheating also goes against honesty and trustworthiness.`
+
+    :`Kejujuran ialah nilai yang sangat penting dalam Islam.
+
+Kalau kita melakukan kesilapan, berkata benar dan bertanggungjawab biasanya lebih baik daripada mencipta pembohongan lain untuk menutup kesilapan tersebut.
+
+Dalam pelajaran pula, meniru bertentangan dengan sifat jujur dan amanah.`;
+
+  }
+
+
+  /* SNEEZING */
+
+  if(
+    has(
+      "bersin",
+      "sneeze"
+    )
+  ){
+
+    return english
+
+    ?`When a Muslim sneezes, they say “Alhamdulillah”.
+
+The person who hears it responds “Yarhamukallah”, and the person who sneezed responds “Yahdikumullahu wa yuslih balakum”.`
+
+    :`Apabila seorang Muslim bersin, dia mengucapkan “Alhamdulillah”.
+
+Orang yang mendengarnya menjawab “Yarhamukallah”, kemudian orang yang bersin menjawab “Yahdikumullahu wa yuslih balakum”.`;
+
+  }
+
+
+  /* YAWNING */
+
+  if(
+    has(
+      "menguap",
+      "yawn",
+      "yawning"
+    )
+  ){
+
+    return english
+
+    ?`When yawning, try to suppress it as much as you can and cover your mouth. This is part of good Islamic etiquette.`
+
+    :`Apabila menguap, kita dianjurkan cuba menahannya sedaya yang mampu dan menutup mulut. Ini termasuk dalam adab yang baik.`;
+
+  }
+
+
+  /* RAIN */
+
+  if(
+    has(
+      "hujan",
+      "rain"
+    )
+  ){
+
+    return english
+
+    ?`A well-known supplication when it rains is:
+
+“Allahumma sayyiban nafi'an”
+
+Meaning: “O Allah, make it beneficial rain.”`
+
+    :`Antara doa yang masyhur ketika hujan ialah:
+
+“Allahumma sayyiban nafi'an”
+
+Maksudnya: “Ya Allah, jadikanlah hujan ini hujan yang bermanfaat.”`;
+
+  }
+
+
+  /* KAABAH */
+
+  if(
+    has(
+      "kaabah",
+      "kaaba",
+      "kiblat",
+      "qiblah",
+      "qibla"
+    )
+  ){
+
+    return english
+
+    ?`Muslims face the Kaabah as the qiblah during prayer.
+
+It represents unity in worship. Muslims worship Allah, not the Kaabah itself.`
+
+    :`Umat Islam menghadap Kaabah sebagai kiblat ketika solat.
+
+Ia melambangkan kesatuan umat Islam dalam ibadah. Umat Islam menyembah Allah, bukan Kaabah itu sendiri.`;
+
+  }
+
+
+  /* HADITH */
+
+  if(
+    has(
+      "hadis",
+      "hadith",
+      "sahih",
+      "authentic",
+      "sanad",
+      "matan"
+    )
+  ){
+
+    return english
+
+    ?`Hadith scholars use several methods when assessing narrations, including examining the chain of narrators (isnad), the narrators and the text (matn).
+
+Not every quote shared online in the name of a hadith is automatically authentic.`
+
+    :`Ulama hadis menggunakan beberapa kaedah untuk menilai riwayat, termasuk meneliti sanad, perawi dan matan.
+
+Tidak semua kata-kata yang tersebar di internet atas nama hadis secara automatik merupakan hadis sahih.`;
+
+  }
+
+
+  /* HUDHUD */
+
+  if(
+    has(
+      "hudhud",
+      "hoopoe"
+    )
+  ){
+
+    return english
+
+    ?`The hoopoe bird, or Hudhud, appears in the story of Prophet Sulaiman AS in Surah An-Naml.
+
+Hudhud brought information about the people of Saba'. The story also highlights the importance of information and responsibility.`
+
+    :`Burung Hudhud disebut dalam kisah Nabi Sulaiman AS dalam Surah An-Naml.
+
+Hudhud membawa maklumat tentang kaum Saba'. Kisah ini juga menunjukkan kepentingan maklumat dan tanggungjawab dalam menyampaikan sesuatu berita.`;
+
+  }
+
+
+  /* ANT */
+
+  if(
+    has(
+      "semut",
+      "ant",
+      "ants"
+    )
+  ){
+
+    return english
+
+    ?`The story of the ants appears in Surah An-Naml in connection with Prophet Sulaiman AS.
+
+A female ant warned the other ants about the approaching army. The story can remind us about awareness, wisdom and concern for other creatures.`
+
+    :`Kisah semut disebut dalam Surah An-Naml berkaitan dengan Nabi Sulaiman AS.
+
+Seekor semut memberi amaran kepada semut lain tentang tentera yang datang. Kisah ini boleh mengingatkan kita tentang kewaspadaan, kebijaksanaan dan mengambil berat terhadap makhluk lain.`;
+
+  }
+
+
+  /* PRAYER */
+
+  if(
+    has(
+      "solat",
+      "salat",
+      "prayer",
+      "pray"
+    )
+  ){
+
+    return english
+
+    ?`Salah is one of the central acts of worship in Islam. The five daily prayers help Muslims remember Allah regularly and organise their day around worship.
+
+If you want, you can also ask me about the meaning, adab or basic steps of prayer.`
+
+    :`Solat ialah antara ibadah utama dalam Islam. Lima waktu solat membantu umat Islam mengingati Allah secara berkala dan menyusun kehidupan harian berdasarkan ibadah.
+
+Kalau nak, anda juga boleh tanya tentang maksud, adab atau asas solat.`;
+
+  }
+
+
+  /* QURAN */
+
+  if(
+    has(
+      "quran",
+      "al quran",
+      "alquran",
+      "coran"
+    )
+  ){
+
+    return english
+
+    ?`The Quran is the central revealed scripture of Islam. Muslims believe it is the word of Allah revealed to Prophet Muhammad SAW.
+
+You can ask me about a particular surah, verse or general Quranic topic.`
+
+    :`Al-Quran ialah kitab suci utama dalam Islam. Umat Islam meyakini bahawa Al-Quran ialah kalam Allah yang diturunkan kepada Nabi Muhammad SAW.
+
+Anda boleh tanya tentang surah, ayat atau topik Al-Quran tertentu.`;
+
+  }
+
+
+  /* ISLAM */
+
+  if(
+    has(
+      "islam",
+      "muslim",
+      "allah"
+    )
+  ){
+
+    return english
+
+    ?`Islam teaches Muslims to worship Allah and live according to His guidance. It also emphasises values such as honesty, mercy, patience, justice and good character.
+
+You can type your question naturally, even if your Malay and English are mixed.`
+
+    :`Islam mengajar umat Islam menyembah Allah dan menjalani kehidupan berdasarkan petunjuk-Nya.
+
+Islam juga menekankan nilai seperti kejujuran, kasih sayang, kesabaran, keadilan dan akhlak yang baik.
+
+Anda boleh taip soalan secara biasa, termasuk jika campur Bahasa Melayu dan English.`;
+
+  }
+
+
+  /* EMOTIONAL / LIFE */
+
+  if(
+    has(
+      "sedih",
+      "stress",
+      "stres",
+      "lonely",
+      "sunyi",
+      "sad",
+      "hurt",
+      "terluka",
+      "takut",
+      "afraid"
+    )
+  ){
+
+    return english
+
+    ?`If you are going through something difficult, be gentle with yourself.
+
+Islam encourages turning to Allah through prayer and du'a while also seeking appropriate support from people you trust.
+
+If the situation is serious or affecting your safety or wellbeing, please speak with a trusted person or qualified professional.`
+
+    :`Kalau sedang melalui sesuatu yang susah, cuba berlembut dengan diri sendiri.
+
+Islam menggalakkan kita mendekatkan diri kepada Allah melalui solat dan doa, di samping mendapatkan sokongan daripada orang yang dipercayai.
+
+Jika keadaan serius atau menjejaskan keselamatan dan kesejahteraan diri, berbincanglah dengan orang yang dipercayai atau profesional yang sesuai.`;
+
+  }
+
+
+  /* GENERAL FALLBACK */
+
+  return english
+
+  ?`I understand what you're asking, but my Level 1 knowledge base does not have a reliable answer for that specific question yet.
+
+You can still describe the situation in your own words. For example:
+
+“My friend did something wrong. What should I do Islamically?”
+
+For detailed fiqh, fatwa or sensitive religious questions, please verify the answer with a qualified Islamic scholar.`
+
+  :`Saya faham apa yang anda tanyakan, tetapi knowledge base Akhlak AI Level 1 belum mempunyai jawapan yang cukup dipercayai untuk soalan khusus itu.
+
+Anda tetap boleh ceritakan situasi tersebut menggunakan bahasa sendiri. Contohnya:
+
+“Kawan saya buat sesuatu yang salah. Apa patut saya buat dari sudut Islam?”
+
+Untuk persoalan fiqh, fatwa atau isu agama yang sensitif dan terperinci, sila semak jawapan dengan ustaz/ustazah atau pihak berautoriti.`;
+
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+function resetData(){
+
+  const confirmReset=
+  confirm(
+    "Adakah anda pasti mahu reset semua progress?"
+  );
+
+
+  if(confirmReset){
+
+    localStorage.removeItem(
+      "nurquestLevel1"
+    );
+
+    location.reload();
+
+  }
+
+}
+
+
+/* =========================================================
+   RENDER EVERYTHING
+========================================================= */
+
+function renderAll(){
+
+  renderHome();
+
+  renderPerformance();
+
+  renderAchievements();
+
+  applyLanguage();
+
+}
+
+
+/* =========================================================
+   INITIALISE
+========================================================= */
+
+buildNav();
+
+
+if(state.dark){
+
+  document.body.classList.add("dark");
+
+}
+
+
+document.getElementById("darkBtn")
+.textContent=
+state.dark?"ON":"OFF";
+
+
+document.getElementById("soundBtn")
+.textContent=
+state.sound?"ON":"OFF";
+
+
+document.getElementById("language")
+.value=state.lang;
+
+
+renderNotes();
+
+renderChat();
+
+renderAll();
+// =============================
+// NURQUEST AI - REAL AI
+// =============================
+
+const NURQUEST_AI_URL =
+  "https://nur-quest-ai.vercel.app/api/islam-ai";
+
+let aiHistory = [];
+
+function addAIMessage(role, text) {
+  const chat = document.getElementById("chat");
+  if (!chat) return;
+
+  const message = document.createElement("div");
+  message.className = "message " + role;
+
+  const bubble = document.createElement("div");
+  bubble.className = "bubble";
+  bubble.textContent = text;
+
+  message.appendChild(bubble);
+  chat.appendChild(message);
+
+  chat.scrollTop = chat.scrollHeight;
+}
+
+async function sendAI(event) {
+  event.preventDefault();
+
+  const input = document.getElementById("aiInput");
+  if (!input) return;
+
+  const question = input.value.trim();
+
+  if (!question) return;
+
+  const language =
+    document.getElementById("language")?.value || "ms";
+
+  // Paparkan soalan pengguna
+  addAIMessage("user", question);
+
+  input.value = "";
+
+  // Loading
+  addAIMessage(
+    "bot",
+    language === "en"
+      ? "Thinking..."
+      : "Sedang berfikir..."
+  );
+
+  const chat = document.getElementById("chat");
+  const loadingBubble =
+    chat?.lastElementChild?.querySelector(".bubble");
+
+  try {
+    const response = await fetch(NURQUEST_AI_URL, {
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json"
+      },
+
+      body: JSON.stringify({
+        message: question,
+        language: language,
+        history: aiHistory
+      })
+    });
+
+    const data = await response.json();
+    console.log("NurQuest AI response:", data);
+
+    // Buang loading message
+    if (chat?.lastElementChild) {
+      chat.lastElementChild.remove();
+    }
+
+    if (!response.ok) {
+      throw new Error(data.error || "AI request failed");
+    }
+
+    const answer =
+      data.answer ||
+      (language === "en"
+        ? "Sorry, I couldn't answer that."
+        : "Maaf, saya tidak dapat menjawab soalan itu.");
+
+    console.log("ANSWER:", answer, typeof answer);
+
+addAIMessage("bot", answer);
+
+    // Simpan conversation
+    aiHistory.push({
+      role: "user",
+      content: question
+    });
+
+    aiHistory.push({
+      role: "assistant",
+      content: answer
+    });
+
+    // Simpan maksimum 10 mesej terakhir
+    aiHistory = aiHistory.slice(-10);
+
+  } catch (error) {
+
+    console.error("NurQuest AI error:", error);
+
+    if (chat?.lastElementChild) {
+      chat.lastElementChild.remove();
+    }
+
+    addAIMessage(
+      "bot",
+      language === "en"
+        ? "Sorry, NurQuest AI is temporarily unavailable. Please try again."
+        : "Maaf, NurQuest AI sedang mengalami masalah. Cuba lagi sebentar."
+    );
+  }
+}
+
+function quickAI(question) {
+  const input = document.getElementById("aiInput");
+
+  if (!input) return;
+
+  input.value = question;
+
+  input.focus();
+}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL = "https://tkboklqxlmeqliaygwzf.supabase.co/rest/v1/";
+const SUPABASE_KEY = "sb_publishable_LBGkPr1g-wF7IGwQo5fP_w__bUjalRV";
+
+const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+</script>
+  <script>
+
+function showSignup() {
+    document.getElementById("login-box").style.display = "none";
+    document.getElementById("signup-box").style.display = "block";
+}
+
+function showLogin() {
+    document.getElementById("signup-box").style.display = "none";
+    document.getElementById("login-box").style.display = "block";
+}
+
+async function signupUser() {
+
+    const username = document.getElementById("signup-username").value.trim();
+    const email = document.getElementById("signup-email").value.trim();
+    const password = document.getElementById("signup-password").value;
+    const message = document.getElementById("signup-message");
+
+    if (!username || !email || !password) {
+        message.textContent = "Please fill in all fields.";
+        return;
+    }
+
+    const { data, error } = await supabaseClient.auth.signUp({
+        email: email,
+        password: password
+    });
+
+    if (error) {
+        message.textContent = error.message;
+        return;
+    }
+
+    const { error: profileError } = await supabaseClient
+        .from("profiles")
+        .insert({
+            id: data.user.id,
+            username: username
+        });
+
+    if (profileError) {
+        message.textContent = profileError.message;
+        return;
+    }
+
+    message.textContent = "Account created!";
+}
+
+async function loginUser() {
+
+    const email = document.getElementById("login-email").value.trim();
+    const password = document.getElementById("login-password").value;
+    const message = document.getElementById("login-message");
+
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+        email: email,
+        password: password
+    });
+
+    if (error) {
+        message.textContent = error.message;
+        return;
+    }
+
+    message.textContent = "Login successful!";
+}
+
+</script>
+</body>
+</html>
