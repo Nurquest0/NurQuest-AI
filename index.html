@@ -3404,7 +3404,11 @@ async function loginUser() {
         .single();
 
     if (profileError) {
-        alert("PROFILE ERROR: " + profileError.message);
+         alert("PROFILE ERROR: " + profileError.message);
+        console.error(profileError);
+        return;
+    }
+
         console.error(profileError);
         return;
     }
