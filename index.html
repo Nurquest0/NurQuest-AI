@@ -3379,7 +3379,6 @@ async function signupUser() {
 }
 
 async function loginUser() {
-
     const email = document.getElementById("login-email").value.trim();
     const password = document.getElementById("login-password").value;
     const message = document.getElementById("login-message");
@@ -3394,30 +3393,29 @@ async function loginUser() {
         return;
     }
 
-    message.textContent = "Login successful!";
-  const { data: profile, error: profileError } = await supabaseClient
-    .from("profiles")
-    .select("*")
-    .eq("id", data.user.id)
-    .single();
+    message.textContent = "Login successful! 🎉";
 
-if (profileError) {
-    console.error(profileError);
-    return;
-}
+    alert("LOGIN WORKED");
 
-document.getElementById("profile-username").textContent = profile.username;
-document.getElementById("profile-xp").textContent = profile.xp;
-document.getElementById("profile-level").textContent = profile.level;
-document.getElementById("profile-streak").textContent = profile.streak;
-document.getElementById("profile-box").style.display = "block";
-alert("PROFILE LOADED: " + profile.username);
-}
-    async function logoutUser() {
-    await supabaseClient.auth.signOut();
+    const { data: profile, error: profileError } = await supabaseClient
+        .from("profiles")
+        .select("*")
+        .eq("id", data.user.id)
+        .single();
 
-    document.getElementById("profile-box").style.display = "none";
-    document.getElementById("login-message").textContent = "Logged out.";
+    if (profileError) {
+        alert("PROFILE ERROR: " + profileError.message);
+        console.error(profileError);
+        return;
+    }
+
+    alert("PROFILE FOUND: " + profile.username);
+
+    document.getElementById("profile-username").textContent = profile.username;
+    document.getElementById("profile-xp").textContent = profile.xp;
+    document.getElementById("profile-level").textContent = profile.level;
+    document.getElementById("profile-streak").textContent = profile.streak;
+    document.getElementById("profile-box").style.display = "block";
 }
 
 </script>
