@@ -3411,6 +3411,7 @@ document.getElementById("profile-xp").textContent = profile.xp;
 document.getElementById("profile-level").textContent = profile.level;
 document.getElementById("profile-streak").textContent = profile.streak;
 document.getElementById("profile-box").style.display = "block";
+alert("PROFILE LOADED: " + profile.username);
 }
     async function logoutUser() {
     await supabaseClient.auth.signOut();
